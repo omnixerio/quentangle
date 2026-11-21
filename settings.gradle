@@ -2,6 +2,8 @@ pluginManagement {
     repositories {
         gradlePluginPortal()
         mavenCentral()
+        maven { url "https://maven.ultreon.dev/releases" }
+        maven { url "https://maven.ultreon.dev/snapshots" }
         exclusiveContent {
             forRepository {
                 maven {

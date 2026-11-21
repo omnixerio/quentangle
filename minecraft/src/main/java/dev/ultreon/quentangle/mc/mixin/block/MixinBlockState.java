@@ -6,7 +6,7 @@ import dev.ultreon.quentangle.api.block.IBlockState;
 import dev.ultreon.quentangle.api.player.IPlayer;
 import dev.ultreon.quentangle.api.world.IWorld;
 import dev.ultreon.quentangle.util.IBlockHit;
-import dev.ultreon.quentangle.util.IPos;
+import dev.ultreon.quentangle.util.IVec;
 import dev.ultreon.quentangle.util.InteractResult;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.world.entity.player.Player;
@@ -25,7 +25,7 @@ public abstract class MixinBlockState extends BlockBehaviour.BlockStateBase impl
     }
 
     @Override
-    public InteractResult quent$use(IWorld world, IPos pos, IPlayer player, IBlockHit hit) {
+    public InteractResult quent$use(IWorld world, IVec pos, IPlayer player, IBlockHit hit) {
         return switch (useWithoutItem((Level) world, (Player) player, (BlockHitResult) hit)) {
             case SUCCESS -> InteractResult.SUCCESS;
             case FAIL -> InteractResult.FAIL;

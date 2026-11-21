@@ -15,8 +15,6 @@ configurations {
     compileClasspath.extendsFrom library
     apiElements.extendsFrom library
     runtimeElements.extendsFrom library
-    sourcesElements.extendsFrom library
-    javadocElements.extendsFrom library
 }
 
 base {

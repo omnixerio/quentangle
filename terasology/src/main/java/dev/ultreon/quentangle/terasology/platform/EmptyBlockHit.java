@@ -17,7 +17,7 @@ public class EmptyBlockHit implements IBlockHit {
     }
 
     @Override
-    public IPos quent$hitVec(IPos pos) {
+    public IVec quent$hitVec(IVec pos) {
         return VEC;
     }
 }

@@ -1,12 +1,11 @@
 package dev.ultreon.quentangle.qv.mixin.accessor;
 
-import dev.ultreon.quantum.client.gui.Renderer;
-import dev.ultreon.quantum.client.gui.Screen;
+import net.quantumvoxel.client.backend.Gui;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(Screen.class)
+@Mixin(net.quantumvoxel.client.gui.widget.Screen.class)
 public interface ScreenAccessor {
     @Invoker("renderBackground")
-    void quent$renderBackground(Renderer renderer);
+    void quent$renderBackground(Gui renderer);
 }

@@ -1,8 +1,12 @@
 package dev.ultreon.quentangle.qv.mixin.world;
 
-import dev.ultreon.quantum.block.Blocks;
-import dev.ultreon.quantum.block.state.BlockState;
-import dev.ultreon.quantum.world.World;
+import net.quantumvoxel.Blocks;
+import net.quantumvoxel.ai.BlockNavigator;
+import net.quantumvoxel.block.state.BlockState;
+import net.quantumvoxel.resource.GameObject;
+import net.quantumvoxel.util.BlockFlags;
+import net.quantumvoxel.world.BlockAccess;
+import net.quantumvoxel.world.World;
 import dev.ultreon.quentangle.api.block.IBlockState;
 import dev.ultreon.quentangle.api.world.IClientWorld;
 import dev.ultreon.quentangle.api.world.IServerWorld;
@@ -13,10 +17,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(World.class)
-public abstract class MixinWorld implements IWorld {
+public abstract class MixinWorld extends GameObject implements BlockAccess, BlockNavigator.WorldAccess, IWorld {
     @Shadow public abstract @NotNull BlockState get(int x, int y, int z);
 
-    @Shadow public abstract boolean set(int x, int y, int z, BlockState block);
+    @Shadow
+    public abstract boolean set(int i, int i1, int i2, BlockState blockState, int i3);
 
     @Override
     public @Nullable IServerWorld quent$asServerWorld() {
@@ -30,16 +35,16 @@ public abstract class MixinWorld implements IWorld {
 
     @Override
     public IBlockState quent$getBlock(int x, int y, int z) {
-        return (IBlockState) get(x, y, z);
+        return (IBlockState) (Object) get(x, y, z);
     }
 
     @Override
     public void quent$setBlock(int x, int y, int z, IBlockState block) {
-        set(x, y, z, (BlockState) block);
+        set(x, y, z, (BlockState) (Object) block, BlockFlags.BLOCK_UPDATE | BlockFlags.NEIGHBOR_UPDATE | BlockFlags.NOTIFY_CLIENTS);
     }
 
     @Override
     public void quent$removeBlock(int x, int y, int z) {
-        set(x, y, z, Blocks.AIR.getDefaultState());
+        set(x, y, z, Blocks.AIR.getDefaultState(), BlockFlags.BLOCK_UPDATE | BlockFlags.NEIGHBOR_UPDATE | BlockFlags.NOTIFY_CLIENTS);
     }
 }

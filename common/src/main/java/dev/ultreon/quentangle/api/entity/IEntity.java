@@ -1,13 +1,13 @@
 package dev.ultreon.quentangle.api.entity;
 
 public interface IEntity {
-    double quent$getX();
-    double quent$getY();
-    double quent$getZ();
+    double quent$x();
+    double quent$y();
+    double quent$z();
 
-    void quent$setX(double x);
-    void quent$setY(double y);
-    void quent$setZ(double z);
+    void quent$x(double x);
+    void quent$y(double y);
+    void quent$z(double z);
 
-    void quent$setPos(double x, double y, double z);
+    void quent$pos(double x, double y, double z);
 }

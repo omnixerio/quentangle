@@ -2,10 +2,16 @@ package dev.ultreon.quentangle.platform.services;
 
 import dev.ultreon.quentangle.Game;
 import dev.ultreon.quentangle.ModLoader;
-import dev.ultreon.quentangle.api.block.IBlocks;
+import dev.ultreon.quentangle.api.IItemGroupApi;
+import dev.ultreon.quentangle.api.IRegistryApi;
+import dev.ultreon.quentangle.api.IScreenApi;
+import dev.ultreon.quentangle.api.ITextApi;
+import dev.ultreon.quentangle.api.block.IBlocksApi;
+import dev.ultreon.quentangle.api.block.entity.IBlockEntityApi;
 import dev.ultreon.quentangle.item.IItemsApi;
 import dev.ultreon.quentangle.platform.IMod;
-import dev.ultreon.quentangle.registry.INamespaceID;
+import dev.ultreon.quentangle.registry.IDeferredRegistry;
+import dev.ultreon.quentangle.registry.IKey;
 import dev.ultreon.quentangle.text.IMutableTextObject;
 import dev.ultreon.quentangle.text.ITextObject;
 import dev.ultreon.quentangle.util.Env;
@@ -42,7 +48,11 @@ public interface IPlatform {
 
     int getDefaultMaxStackSize();
 
-    IBlocks getBlocksApi();
+    IBlockEntityApi getBlockEntityApi();
+
+    ITextApi getTextApi();
+
+    IBlocksApi getBlocksApi();
 
     IItemsApi getItemsApi();
 
@@ -54,7 +64,7 @@ public interface IPlatform {
 
     boolean is3DChunks();
 
-    INamespaceID createId(String domain, String path);
+    IKey key(String domain, String path);
 
     IMutableTextObject createLiteralText(String text);
 
@@ -76,4 +86,10 @@ public interface IPlatform {
     ///
     /// @return The current environment
     Env getEnv();
+
+    IItemGroupApi getItemGroupApi();
+
+    IScreenApi getScreenApi();
+
+    IRegistryApi registryApi();
 }

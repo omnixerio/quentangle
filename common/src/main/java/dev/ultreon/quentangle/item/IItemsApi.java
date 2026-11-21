@@ -4,4 +4,6 @@ import dev.ultreon.quentangle.api.item.IItem;
 
 public interface IItemsApi {
     IItem getAir();
+    IItem getStone();
+    IItem getDirt();
 }

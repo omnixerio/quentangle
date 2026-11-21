@@ -2,7 +2,7 @@ package dev.ultreon.quentangle.mc.mixin.client.gui;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ultreon.quentangle.api.client.gui.IGuiRenderer;
-import dev.ultreon.quentangle.registry.INamespaceID;
+import dev.ultreon.quentangle.registry.IKey;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -36,22 +36,22 @@ public abstract class MixinGuiGraphics implements IGuiRenderer {
     @Shadow public abstract int drawString(Font font, @Nullable String text, int x, int y, int color, boolean dropShadow);
 
     @Override
-    public void quent$drawTex(INamespaceID texture, int x, int y, int width, int height) {
+    public void quent$drawTex(IKey texture, int x, int y, int width, int height) {
         blit((ResourceLocation) (Object) texture, x, y, 0, 0, width, height);
     }
 
     @Override
-    public void quent$drawTex(INamespaceID texture, int x, int y, int width, int height, int u, int v) {
+    public void quent$drawTex(IKey texture, int x, int y, int width, int height, int u, int v) {
         blit((ResourceLocation) (Object) texture, x, y, u, v, width, height);
     }
 
     @Override
-    public void quent$drawTex(INamespaceID texture, int x, int y, int width, int height, int u, int v, int uWidth, int vHeight) {
+    public void quent$drawTex(IKey texture, int x, int y, int width, int height, int u, int v, int uWidth, int vHeight) {
         blit((ResourceLocation) (Object) texture, x, y, width, height, u, v, uWidth, vHeight);
     }
 
     @Override
-    public void quent$drawTex(INamespaceID texture, int x, int y, int width, int height, int u, int v, int uWidth, int vHeight, int textureWidth, int textureHeight) {
+    public void quent$drawTex(IKey texture, int x, int y, int width, int height, int u, int v, int uWidth, int vHeight, int textureWidth, int textureHeight) {
         blit((ResourceLocation) (Object) texture, x, y, u, v, width, height, uWidth, vHeight, textureWidth, textureHeight);
     }
 

@@ -1,7 +1,7 @@
 package dev.ultreon.quentangle.registry;
 
-public interface IRegistrySupplier<T> {
-    T get();
+public interface IRegistrySupplier<R> {
+    R get();
 
-    IRegistry<?> getRegistry();
+    IRegistry<R> getRegistry();
 }

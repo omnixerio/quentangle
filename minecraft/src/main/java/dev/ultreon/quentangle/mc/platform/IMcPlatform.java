@@ -2,7 +2,7 @@ package dev.ultreon.quentangle.mc.platform;
 
 import com.mojang.brigadier.Command;
 import dev.ultreon.quentangle.Game;
-import dev.ultreon.quentangle.api.block.IBlocks;
+import dev.ultreon.quentangle.api.block.IBlocksApi;
 import dev.ultreon.quentangle.item.IItemsApi;
 import dev.ultreon.quentangle.mc.components.ComponentManager;
 import dev.ultreon.quentangle.mc.network.NetworkRegistry;
@@ -11,7 +11,7 @@ import dev.ultreon.quentangle.mc.platform.services.IClientPlatform;
 import dev.ultreon.quentangle.mc.registrar.RegistrarManager;
 import dev.ultreon.quentangle.mc.tabs.IItemGroupBuilder;
 import dev.ultreon.quentangle.platform.services.IPlatform;
-import dev.ultreon.quentangle.registry.INamespaceID;
+import dev.ultreon.quentangle.registry.IKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 
@@ -49,7 +49,7 @@ public interface IMcPlatform extends IPlatform {
     }
 
     @Override
-    default IBlocks getBlocksApi() {
+    default IBlocksApi getBlocksApi() {
         throw new UnsupportedOperationException("Blocks API is not implemented for Minecraft");
     }
 
@@ -59,8 +59,8 @@ public interface IMcPlatform extends IPlatform {
     }
 
     @Override
-    default INamespaceID createId(String domain, String path) {
-        return (INamespaceID) (Object) ResourceLocation.fromNamespaceAndPath(domain, path);
+    default IKey key(String domain, String path) {
+        return (IKey) (Object) ResourceLocation.fromNamespaceAndPath(domain, path);
     }
 
     @Override

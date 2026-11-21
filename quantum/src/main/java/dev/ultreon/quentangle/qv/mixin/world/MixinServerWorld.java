@@ -1,6 +1,6 @@
 package dev.ultreon.quentangle.qv.mixin.world;
 
-import dev.ultreon.quantum.world.ServerWorld;
+import net.quantumvoxel.server.ServerWorld;
 import dev.ultreon.quentangle.api.world.IServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
 

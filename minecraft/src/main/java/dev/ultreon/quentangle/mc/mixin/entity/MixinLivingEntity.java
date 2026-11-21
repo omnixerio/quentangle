@@ -11,11 +11,11 @@ public abstract class MixinLivingEntity implements ILivingEntity {
 
     @Shadow public abstract float getHealth();
 
-    public void quent$setHealth(float health) {
+    public void quent$health(float health) {
         setHealth(health);
     }
 
-    public float quent$getHealth() {
+    public float quent$health() {
         return getHealth();
     }
 }

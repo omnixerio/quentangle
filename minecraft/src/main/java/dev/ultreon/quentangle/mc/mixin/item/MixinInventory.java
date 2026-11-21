@@ -16,12 +16,12 @@ public abstract class MixinInventory implements IInventory {
     @Shadow public abstract ItemStack getItem(int slot);
 
     @Override
-    public int quent$getSize() {
+    public int quent$size() {
         return getContainerSize();
     }
 
     @Override
-    public void quentangle$clear() {
+    public void quent$clear() {
         clearContent();
     }
 

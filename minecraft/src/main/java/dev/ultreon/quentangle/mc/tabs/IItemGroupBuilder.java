@@ -3,7 +3,7 @@ package dev.ultreon.quentangle.mc.tabs;
 import dev.ultreon.quentangle.api.item.IItemGroup;
 import dev.ultreon.quentangle.api.item.IItemGroupContent;
 import dev.ultreon.quentangle.api.item.IItemStack;
-import dev.ultreon.quentangle.registry.INamespaceID;
+import dev.ultreon.quentangle.registry.IKey;
 import dev.ultreon.quentangle.text.ITextObject;
 
 import java.util.function.Supplier;
@@ -14,7 +14,7 @@ public interface IItemGroupBuilder {
 
     IItemGroupBuilder icon(Supplier<IItemStack> icon);
 
-    IItemGroupBuilder background(INamespaceID background);
+    IItemGroupBuilder background(IKey background);
 
     IItemGroupBuilder noScrollBar();
 

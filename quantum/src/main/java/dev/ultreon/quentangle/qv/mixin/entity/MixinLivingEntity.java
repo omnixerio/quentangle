@@ -1,7 +1,7 @@
 package dev.ultreon.quentangle.qv.mixin.entity;
 
-import dev.ultreon.quantum.entity.LivingEntity;
 import dev.ultreon.quentangle.api.entity.ILivingEntity;
+import net.quantumvoxel.world.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
@@ -11,11 +11,11 @@ public abstract class MixinLivingEntity implements ILivingEntity {
 
     @Shadow public abstract float getHealth();
 
-    public void quent$setHealth(float health) {
+    public void quent$health(float health) {
         setHealth(health);
     }
 
-    public float quent$getHealth() {
+    public float quent$health() {
         return getHealth();
     }
 }

@@ -12,7 +12,7 @@ public abstract class MixinHitResult implements IHit {
     @Shadow @Final protected Vec3 location;
 
     @Override
-    public IPos quent$hitVec(IPos pos) {
+    public IVec quent$hitVec(IVec pos) {
         return pos.set(location.x, location.y, location.z);
     }
 }

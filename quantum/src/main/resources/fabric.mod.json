@@ -24,7 +24,7 @@
   ],
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",
-    "quantum": ">=0.2",
+    "quantum": ">=0.1",
     "java": ">=${java_version}"
   },
   "suggests": {

@@ -2,7 +2,7 @@ package dev.ultreon.quentangle.util;
 
 import dev.ultreon.quentangle.platform.Services;
 
-public class Vec implements IPos {
+public class Vec implements IVec {
     public double x;
     public double y;
     public double z;
@@ -13,7 +13,7 @@ public class Vec implements IPos {
         this.z = z;
     }
 
-    public Vec(IPos pos) {
+    public Vec(IVec pos) {
         this.x = pos.getX();
         this.y = pos.getY();
         this.z = pos.getZ();
@@ -65,7 +65,7 @@ public class Vec implements IPos {
     }
 
     @Override
-    public IPos copy() {
+    public IVec copy() {
         return new Vec(x, y, z);
     }
 

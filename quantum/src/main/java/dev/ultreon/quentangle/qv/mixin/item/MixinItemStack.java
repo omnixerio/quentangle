@@ -1,6 +1,8 @@
 package dev.ultreon.quentangle.qv.mixin.item;
 
-import dev.ultreon.quantum.item.ItemStack;
+import dev.ultreon.quentangle.api.item.IItem;
+import net.quantumvoxel.item.Item;
+import net.quantumvoxel.item.ItemStack;
 import dev.ultreon.quentangle.api.item.IItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -11,6 +13,9 @@ public abstract class MixinItemStack implements IItemStack {
 
     @Shadow public abstract int getCount();
 
+    @Shadow
+    private Item item;
+
     @Override
     public int quent$getAmount() {
         return getCount();
@@ -19,5 +24,10 @@ public abstract class MixinItemStack implements IItemStack {
     @Override
     public void quent$setAmount(int amount) {
         setCount(amount);
+    }
+
+    @Override
+    public IItem quent$getItem() {
+        return (IItem) item;
     }
 }

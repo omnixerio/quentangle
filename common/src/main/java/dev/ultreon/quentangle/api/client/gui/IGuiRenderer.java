@@ -1,12 +1,12 @@
 package dev.ultreon.quentangle.api.client.gui;
 
-import dev.ultreon.quentangle.registry.INamespaceID;
+import dev.ultreon.quentangle.registry.IKey;
 
 public interface IGuiRenderer {
-    void quent$drawTex(INamespaceID texture, int x, int y, int width, int height);
-    void quent$drawTex(INamespaceID texture, int x, int y, int width, int height, int u, int v);
-    void quent$drawTex(INamespaceID texture, int x, int y, int width, int height, int u, int v, int uWidth, int vHeight);
-    void quent$drawTex(INamespaceID texture, int x, int y, int width, int height, int u, int v, int uWidth, int vHeight, int textureWidth, int textureHeight);
+    void quent$drawTex(IKey texture, int x, int y, int width, int height);
+    void quent$drawTex(IKey texture, int x, int y, int width, int height, int u, int v);
+    void quent$drawTex(IKey texture, int x, int y, int width, int height, int u, int v, int uWidth, int vHeight);
+    void quent$drawTex(IKey texture, int x, int y, int width, int height, int u, int v, int uWidth, int vHeight, int textureWidth, int textureHeight);
 
     default void quent$drawString(String text, int x, int y) {
         quent$drawString(text, x, y, true);

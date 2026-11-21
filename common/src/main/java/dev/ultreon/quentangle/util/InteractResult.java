@@ -5,5 +5,6 @@ public enum InteractResult {
     SUCCESS,
     FAIL,
     CONSUME,
+    SEND,
     UNKNOWN
 }

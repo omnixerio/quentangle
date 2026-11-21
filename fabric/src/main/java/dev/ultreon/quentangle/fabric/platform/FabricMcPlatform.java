@@ -1,7 +1,7 @@
 package dev.ultreon.quentangle.fabric.platform;
 
 import com.mojang.brigadier.CommandDispatcher;
-import dev.ultreon.quantum.api.neocommand.CommandRegistrant;
+import net.quantumvoxel.api.neocommand.CommandRegistrant;
 import dev.ultreon.quentangle.ModLoader;
 import dev.ultreon.quentangle.fabric.network.FabricNetworker;
 import dev.ultreon.quentangle.fabric.registrar.FabricRegistrarManager;

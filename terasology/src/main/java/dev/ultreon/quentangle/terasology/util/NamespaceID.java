@@ -1,10 +1,9 @@
 package dev.ultreon.quentangle.terasology.util;
 
-import dev.ultreon.quantum.util.NamespaceID;
-import dev.ultreon.quentangle.registry.INamespaceID;
-import org.jetbrains.annotations.NotNull;
+import net.quantumvoxel.util.NamespaceID;
+import dev.ultreon.quentangle.registry.IKey;
 
-public class NamespaceID implements INamespaceID {
+public class NamespaceID implements IKey {
     private final String domain;
     private final String path;
 

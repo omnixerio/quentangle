@@ -1,24 +1,24 @@
 package dev.ultreon.quentangle.terasology.platform;
 
-import dev.ultreon.quantum.block.Block;
-import dev.ultreon.quantum.block.Blocks;
-import dev.ultreon.quantum.block.state.BlockState;
-import dev.ultreon.quantum.entity.player.Player;
-import dev.ultreon.quantum.item.Item;
-import dev.ultreon.quantum.item.Items;
-import dev.ultreon.quantum.item.UseItemContext;
-import dev.ultreon.quantum.text.TextObject;
-import dev.ultreon.quantum.util.NamespaceID;
-import dev.ultreon.quantum.world.UseResult;
-import dev.ultreon.quantum.world.World;
-import dev.ultreon.quantum.world.WorldAccess;
-import dev.ultreon.quantum.world.vec.BlockVec;
+import net.quantumvoxel.block.Block;
+import net.quantumvoxel.block.Blocks;
+import net.quantumvoxel.block.state.BlockState;
+import net.quantumvoxel.entity.player.Player;
+import net.quantumvoxel.item.Item;
+import net.quantumvoxel.item.Items;
+import net.quantumvoxel.item.UseItemContext;
+import net.quantumvoxel.text.TextObject;
+import net.quantumvoxel.util.NamespaceID;
+import net.quantumvoxel.world.UseResult;
+import net.quantumvoxel.world.World;
+import net.quantumvoxel.world.WorldAccess;
+import net.quantumvoxel.world.vec.BlockVec;
 import dev.ultreon.quentangle.CommonConstants;
 import dev.ultreon.quentangle.Game;
 import dev.ultreon.quentangle.ModLoader;
 import dev.ultreon.quentangle.api.block.IBlock;
 import dev.ultreon.quentangle.api.block.IBlockState;
-import dev.ultreon.quentangle.api.block.IBlocks;
+import dev.ultreon.quentangle.api.block.IBlocksApi;
 import dev.ultreon.quentangle.api.item.IItem;
 import dev.ultreon.quentangle.api.player.IPlayer;
 import dev.ultreon.quentangle.api.world.IWorld;
@@ -26,7 +26,7 @@ import dev.ultreon.quentangle.block.IBlockFactory;
 import dev.ultreon.quentangle.item.IItemsApi;
 import dev.ultreon.quentangle.platform.IMod;
 import dev.ultreon.quentangle.platform.services.IPlatform;
-import dev.ultreon.quentangle.registry.INamespaceID;
+import dev.ultreon.quentangle.registry.IKey;
 import dev.ultreon.quentangle.text.IMutableTextObject;
 import dev.ultreon.quentangle.text.ITextObject;
 import dev.ultreon.quentangle.util.Env;
@@ -42,7 +42,7 @@ import java.util.Optional;
 
 public class QuantumPlatform implements IPlatform {
 
-    private final IBlocks blocksApi = new IBlocks() {
+    private final IBlocksApi blocksApi = new IBlocksApi() {
         @Override
         public IBlock getAir() {
             return (IBlock) Blocks.AIR;
@@ -136,8 +136,8 @@ public class QuantumPlatform implements IPlatform {
     }
 
     @Override
-    public INamespaceID createId(String domain, String path) {
-        return (INamespaceID) (Object) new NamespaceID(domain, path);
+    public IKey key(String domain, String path) {
+        return (IKey) (Object) new NamespaceID(domain, path);
     }
 
     @Override
@@ -202,7 +202,7 @@ public class QuantumPlatform implements IPlatform {
     }
 
     @Override
-    public IBlocks getBlocksApi() {
+    public IBlocksApi getBlocksApi() {
         return blocksApi;
     }
 

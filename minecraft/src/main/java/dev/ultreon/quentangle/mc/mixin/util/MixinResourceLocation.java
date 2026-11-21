@@ -1,13 +1,13 @@
 package dev.ultreon.quentangle.mc.mixin.util;
 
-import dev.ultreon.quentangle.registry.INamespaceID;
+import dev.ultreon.quentangle.registry.IKey;
 import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(ResourceLocation.class)
-public class MixinResourceLocation implements INamespaceID {
+public class MixinResourceLocation implements IKey {
 
     @Shadow @Final private String namespace;
 

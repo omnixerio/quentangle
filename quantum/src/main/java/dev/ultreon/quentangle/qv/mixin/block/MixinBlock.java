@@ -1,26 +1,23 @@
 package dev.ultreon.quentangle.qv.mixin.block;
 
-import dev.ultreon.quantum.block.Block;
-import dev.ultreon.quantum.block.state.BlockState;
-import dev.ultreon.quantum.entity.player.Player;
-import dev.ultreon.quantum.item.Item;
-import dev.ultreon.quantum.item.UseItemContext;
-import dev.ultreon.quantum.util.BlockHit;
-import dev.ultreon.quantum.util.Hit;
-import dev.ultreon.quantum.world.UseResult;
-import dev.ultreon.quantum.world.World;
-import dev.ultreon.quantum.world.WorldAccess;
-import dev.ultreon.quantum.world.vec.BlockVec;
+import dev.ultreon.quentangle.api.IBlockVec;
+import dev.ultreon.quentangle.api.world.IServerWorld;
+import net.quantumvoxel.block.Block;
+import net.quantumvoxel.block.state.BlockState;
+import net.quantumvoxel.item.UseResult;
+import net.quantumvoxel.player.PlayerEntity;
+import net.quantumvoxel.server.ServerWorld;
+import net.quantumvoxel.util.BlockVec;
+import net.quantumvoxel.world.HitResult;
+import net.quantumvoxel.world.World;
 import dev.ultreon.quentangle.api.block.IBlock;
 import dev.ultreon.quentangle.api.block.IBlockState;
 import dev.ultreon.quentangle.api.player.IPlayer;
 import dev.ultreon.quentangle.api.world.IWorld;
 import dev.ultreon.quentangle.util.IBlockHit;
 import dev.ultreon.quentangle.util.IHit;
-import dev.ultreon.quentangle.util.IPos;
+import dev.ultreon.quentangle.util.IVec;
 import dev.ultreon.quentangle.util.InteractResult;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
@@ -28,37 +25,38 @@ import org.spongepowered.asm.mixin.Shadow;
 public abstract class MixinBlock implements IBlock {
 
     @Shadow
-    public abstract UseResult use(@NotNull WorldAccess world, @NotNull Player player, @NotNull Item item, @NotNull BlockVec pos);
+    public abstract UseResult use(World world, PlayerEntity player, BlockState state, HitResult hitResult);
 
-    @Shadow public abstract void onDestroy(@NotNull World world, @NotNull BlockVec breaking, @NotNull BlockState blockState, @Nullable Player breaker);
+    @Shadow
+    public abstract void onDestroy(ServerWorld world, BlockVec breaking, BlockState blockState);
 
-    @Shadow public abstract BlockState onPlacedBy(BlockState blockMeta, BlockVec at, UseItemContext context);
+    @Shadow
+    public abstract void onPlace(ServerWorld serverWorld, BlockVec blockVec, BlockState blockState);
 
     @Override
-    public InteractResult quent$use(IBlockState state, IWorld world, IPos pos, IPlayer player, IBlockHit hit) {
-        return switch (use((WorldAccess) world, (Player) player, ((Player)player).getSelectedItem().getItem(), ((BlockHit)hit).getBlockVec())) {
-            case ALLOW -> InteractResult.SUCCESS;
-            case DENY -> InteractResult.FAIL;
-            case SKIP -> InteractResult.PASS;
+    public InteractResult quent$use(IBlockState state, IWorld world, IVec pos, IPlayer player, IBlockHit hit) {
+        World world1 = (World) world;
+        BlockState blockState = world1.get((BlockVec) pos);
+        UseResult use = use(world1, (PlayerEntity) player, blockState, (HitResult) (Object) hit);
+        return switch (use) {
+            case SUCCESS -> InteractResult.SUCCESS;
+            case FAIL -> InteractResult.FAIL;
+            case SEND -> InteractResult.SEND;
+            case PASS -> InteractResult.PASS;
         };
     }
 
     @Override
-    public boolean quent$onBreak(IBlockState state, IWorld world, IPos pos, IPlayer player) {
-        onDestroy((World) world, new BlockVec(pos.getBlockX(), pos.getBlockY(), pos.getBlockZ()), (BlockState) state, (Player) player);
+    public boolean quent$onBreak(IBlockState state, IServerWorld world, IBlockVec pos, IPlayer player) {
+        onDestroy((ServerWorld) (Object) world, new BlockVec(pos.quent$x(), pos.quent$y(), pos.quent$z()), (BlockState) (Object) state);
         return true;
     }
 
     @Override
-    public IBlockState quent$onPlace(IBlockState state, IBlockState newState, IWorld world, IPos pos, IPlayer player, IHit hit) {
-        BlockState blockState = onPlacedBy((BlockState) state, new BlockVec(pos.getBlockX(), pos.getBlockY(), pos.getBlockZ()), new UseItemContext(
-                (World) world,
-                (Player) player,
-                (Hit) hit,
-                ((Player) player).getSelectedItem(),
-                1f
-        ));
-        return (IBlockState) blockState;
+    public IBlockState quent$onPlace(IBlockState state, IBlockState newState, IWorld world, IBlockVec pos, IPlayer player, IHit hit) {
+        if (!(world instanceof IServerWorld serverWorld)) return newState;
+        onPlace((ServerWorld) (Object) serverWorld, (BlockVec) pos, (BlockState) (Object) state);
+        return world.quent$getBlock(pos);
     }
 
     @Override

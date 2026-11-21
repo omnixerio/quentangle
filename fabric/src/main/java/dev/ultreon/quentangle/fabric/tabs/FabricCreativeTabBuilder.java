@@ -4,7 +4,7 @@ import dev.ultreon.quentangle.api.item.IItemGroup;
 import dev.ultreon.quentangle.api.item.IItemGroupContent;
 import dev.ultreon.quentangle.api.item.IItemStack;
 import dev.ultreon.quentangle.mc.tabs.IItemGroupBuilder;
-import dev.ultreon.quentangle.registry.INamespaceID;
+import dev.ultreon.quentangle.registry.IKey;
 import dev.ultreon.quentangle.text.ITextObject;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.network.chat.Component;
@@ -34,7 +34,7 @@ public class FabricCreativeTabBuilder implements IItemGroupBuilder {
     }
 
     @Override
-    public IItemGroupBuilder background(INamespaceID background) {
+    public IItemGroupBuilder background(IKey background) {
         builder.backgroundTexture((ResourceLocation) (Object) background);
         return this;
     }

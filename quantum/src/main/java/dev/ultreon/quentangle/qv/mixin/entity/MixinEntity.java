@@ -1,52 +1,47 @@
 package dev.ultreon.quentangle.qv.mixin.entity;
 
-import dev.ultreon.quantum.entity.Entity;
+import net.quantumvoxel.entity.Entity;
 import dev.ultreon.quentangle.api.entity.IEntity;
+import net.quantumvoxel.resource.GameObject;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(Entity.class)
-public abstract class MixinEntity implements IEntity {
-    @Shadow public abstract double getX();
-
-    @Shadow public abstract double getY();
-
-    @Shadow public abstract double getZ();
-
-    @Shadow public abstract void setPosition(double x, double y, double z);
-
+public abstract class MixinEntity extends GameObject implements IEntity {
     @Override
-    public double quent$getX() {
-        return getX();
+    public double quent$x() {
+        return position.x;
     }
 
     @Override
-    public double quent$getY() {
-        return getY();
+    public double quent$y() {
+        return position.y;
     }
 
     @Override
-    public double quent$getZ() {
-        return getZ();
+    public double quent$z() {
+        return position.z;
     }
 
     @Override
-    public void quent$setX(double x) {
-        setPosition(x, getY(), getZ());
+    public void quent$x(double x) {
+        position.x = x;
     }
 
     @Override
-    public void quent$setY(double y) {
-        setPosition(getX(), y, getZ());
+    public void quent$y(double y) {
+        position.y = y;
     }
 
     @Override
-    public void quent$setZ(double z) {
-        setPosition(getX(), getY(), z);
+    public void quent$z(double z) {
+        position.z = z;
     }
 
     @Override
-    public void quent$setPos(double x, double y, double z) {
-        setPosition(x, y, z);
+    public void quent$pos(double x, double y, double z) {
+        position.x = x;
+        position.y = y;
+        position.z = z;
     }
 }

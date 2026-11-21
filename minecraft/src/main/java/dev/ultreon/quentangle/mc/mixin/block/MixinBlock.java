@@ -7,7 +7,7 @@ import dev.ultreon.quentangle.api.world.IWorld;
 import dev.ultreon.quentangle.mc.util.McPos;
 import dev.ultreon.quentangle.util.IBlockHit;
 import dev.ultreon.quentangle.util.IHit;
-import dev.ultreon.quentangle.util.IPos;
+import dev.ultreon.quentangle.util.IVec;
 import dev.ultreon.quentangle.util.InteractResult;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
@@ -33,7 +33,7 @@ public abstract class MixinBlock extends BlockBehaviour implements IBlock {
     }
 
     @Override
-    public InteractResult quent$use(IBlockState state, IWorld world, IPos pos, IPlayer player, IBlockHit hit) {
+    public InteractResult quent$use(IBlockState state, IWorld world, IVec pos, IPlayer player, IBlockHit hit) {
         return switch (useWithoutItem((BlockState) state, (Level) world, McPos.blockOf(pos), (Player) player, (BlockHitResult) hit)) {
             case SUCCESS -> InteractResult.SUCCESS;
             case FAIL -> InteractResult.FAIL;
@@ -44,7 +44,7 @@ public abstract class MixinBlock extends BlockBehaviour implements IBlock {
     }
 
     @Override
-    public boolean quent$onBreak(IBlockState state, IWorld world, IPos pos, IPlayer player) {
+    public boolean quent$onBreak(IBlockState state, IWorld world, IVec pos, IPlayer player) {
         BlockPos blockPos = McPos.blockOf(pos);
         Level level = (Level) world;
         playerDestroy(level, (Player) player, blockPos, (BlockState) state, (level).getBlockEntity(blockPos), ((Player) player).getUseItem());
@@ -52,7 +52,7 @@ public abstract class MixinBlock extends BlockBehaviour implements IBlock {
     }
 
     @Override
-    public IBlockState quent$onPlace(IBlockState state, IBlockState newState, IWorld world, IPos pos, IPlayer player, IHit hit) {
+    public IBlockState quent$onPlace(IBlockState state, IBlockState newState, IWorld world, IVec pos, IPlayer player, IHit hit) {
         BlockPos blockPos = McPos.blockOf(pos);
         onPlace((BlockState) newState, (Level) world, blockPos, (BlockState) state, false);
         return (IBlockState) ((Level) world).getBlockState(blockPos);

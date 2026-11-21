@@ -1,12 +1,11 @@
 package dev.ultreon.quentangle.qv.mixin.item;
 
-import dev.ultreon.quantum.entity.Entity;
-import dev.ultreon.quantum.menu.ContainerMenu;
-import dev.ultreon.quantum.menu.Inventory;
-import dev.ultreon.quantum.menu.MenuType;
-import dev.ultreon.quantum.world.WorldAccess;
-import dev.ultreon.quantum.world.container.Container;
-import dev.ultreon.quantum.world.vec.BlockVec;
+import net.quantumvoxel.item.ItemStack;
+import net.quantumvoxel.menu.ContainerMenu;
+import net.quantumvoxel.menu.Inventory;
+import net.quantumvoxel.menu.MenuType;
+import net.quantumvoxel.player.PlayerEntity;
+import net.quantumvoxel.world.container.Container;
 import dev.ultreon.quentangle.api.player.IInventory;
 import dev.ultreon.quentangle.api.item.IItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -16,24 +15,30 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(Inventory.class)
 public abstract class MixinInventory extends ContainerMenu implements IInventory {
-    @Shadow public abstract void clear();
-
-    protected MixinInventory(@NotNull MenuType<?> type, @NotNull WorldAccess world, @NotNull Entity entity, @Nullable BlockVec pos, int size, @Nullable Container<?> container) {
-        super(type, world, entity, pos, size, container);
+    protected MixinInventory(@NotNull MenuType<?> type, @NotNull PlayerEntity player, int size, @Nullable Container container) {
+        super(type, player, size, container);
     }
 
+    @Shadow
+    public abstract void clear();
+
     @Override
-    public int quent$getSize() {
+    public int quent$size() {
         return slots.length;
     }
 
     @Override
-    public void quentangle$clear() {
-clear();
+    public void quent$clear() {
+        clear();
     }
 
     @Override
     public IItemStack quent$get(int slot) {
         return (IItemStack) getItem(slot);
+    }
+
+    @Override
+    public void quent$set(int slot, IItemStack stack) {
+        setItem(slot, (ItemStack) stack);
     }
 }

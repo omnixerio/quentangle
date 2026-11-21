@@ -16,37 +16,37 @@ public abstract class MixinEntity implements IEntity {
     @Shadow public abstract void setPos(double p_20210_, double p_20211_, double p_20212_);
 
     @Override
-    public double quent$getX() {
+    public double quent$x() {
         return getX();
     }
 
     @Override
-    public double quent$getY() {
+    public double quent$y() {
         return getY();
     }
 
     @Override
-    public double quent$getZ() {
+    public double quent$z() {
         return getZ();
     }
 
     @Override
-    public void quent$setX(double x) {
+    public void quent$x(double x) {
         setPos(x, getY(), getZ());
     }
 
     @Override
-    public void quent$setY(double y) {
+    public void quent$y(double y) {
         setPos(getX(), y, getZ());
     }
 
     @Override
-    public void quent$setZ(double z) {
+    public void quent$z(double z) {
         setPos(getX(), getY(), z);
     }
 
     @Override
-    public void quent$setPos(double x, double y, double z) {
+    public void quent$pos(double x, double y, double z) {
         setPos(x, y, z);
     }
 }
