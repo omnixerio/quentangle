@@ -1,6 +1,5 @@
 package dev.ultreon.quentangle.mc.components;
 
-import dev.ultreon.quentangle.mc.platform.services.IMcPlatform;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.Nullable;

@@ -39,3 +39,14 @@ loom {
         }
     }
 }
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+}
+
+// Force dev runs to use Java 21 toolchain (SpongeMixin can't handle Java 25+ class files)
+tasks.withType(JavaExec).configureEach {
+    javaLauncher.set(javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(21)
+    })
+}

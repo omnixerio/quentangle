@@ -1,14 +1,16 @@
 package dev.ultreon.quentangle.fabric.network;
 
+import dev.ultreon.quentangle.api.network.NetworkRegistry;
+import dev.ultreon.quentangle.api.network.Networker;
+import dev.ultreon.quentangle.api.network.PacketReader;
+import dev.ultreon.quentangle.api.network.packet.IPacketIO;
+import dev.ultreon.quentangle.api.player.IServerPlayer;
 import dev.ultreon.quentangle.mc.Constants;
 import dev.ultreon.quentangle.util.Env;
-import dev.ultreon.quentangle.mc.network.NetworkRegistry;
-import dev.ultreon.quentangle.mc.network.Networker;
-import dev.ultreon.quentangle.mc.network.PacketReader;
 import dev.ultreon.quentangle.mc.network.PayloadWrapper;
-import dev.ultreon.quentangle.mc.network.endpoint.ClientEndpoint;
-import dev.ultreon.quentangle.mc.network.endpoint.ServerEndpoint;
-import dev.ultreon.quentangle.mc.network.packet.Packet;
+import dev.ultreon.quentangle.api.network.endpoint.ClientEndpoint;
+import dev.ultreon.quentangle.api.network.endpoint.ServerEndpoint;
+import dev.ultreon.quentangle.api.network.packet.Packet;
 import dev.ultreon.quentangle.mc.platform.McPlatform;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
@@ -40,7 +42,7 @@ public class FabricNetworkRegistry implements NetworkRegistry {
         PayloadTypeRegistry.playS2C().register(type,
                 StreamCodec.of(
                         (buf, wrapper) -> wrapper.write(buf),
-                        (buf) -> new PayloadWrapper<>(type, reader.read(buf))
+                        (buf) -> new PayloadWrapper<>(type, reader.read((IPacketIO) buf))
                 ));
         if (McPlatform.getEnv() == Env.CLIENT)
             ClientPlayNetworking.registerGlobalReceiver(type, (packet, context) -> {
@@ -60,11 +62,11 @@ public class FabricNetworkRegistry implements NetworkRegistry {
         PayloadTypeRegistry.playC2S().register(type,
                 StreamCodec.of(
                         (buf, wrapper) -> wrapper.write(buf),
-                        (buf) -> new PayloadWrapper<>(type, reader.read(buf))
+                        (buf) -> new PayloadWrapper<>(type, reader.read((IPacketIO) buf))
                 ));
         ServerPlayNetworking.registerGlobalReceiver(type, (packet, context) -> {
             if (packet.type() == type) {
-                packet.packet.handle(this.networker, context.player());
+                packet.packet.handle(this.networker, (IServerPlayer) context.player());
             } else {
                 Constants.LOG.warn("Received packet of type {} from {} which is not registered for this network!", packet.type(), context.player().getScoreboardName());
             }
@@ -78,7 +80,7 @@ public class FabricNetworkRegistry implements NetworkRegistry {
 
         StreamCodec<RegistryFriendlyByteBuf, PayloadWrapper<T>> codec = StreamCodec.of(
                 (buf, wrapper) -> wrapper.write(buf),
-                (buf) -> new PayloadWrapper<>(type, reader.read(buf))
+                (buf) -> new PayloadWrapper<>(type, reader.read((IPacketIO) buf))
         );
         PayloadTypeRegistry.playS2C().register(type, codec);
         PayloadTypeRegistry.playC2S().register(type, codec);
@@ -92,7 +94,7 @@ public class FabricNetworkRegistry implements NetworkRegistry {
             });
         ServerPlayNetworking.registerGlobalReceiver(type, (packet, context) -> {
             if (packet.type() == type) {
-                packet.packet.handle(networker, context.player());
+                packet.packet.handle(networker, (IServerPlayer) context.player());
             } else {
                 Constants.LOG.warn("Received packet of type {} from {} which is not registered for this network!", packet.type(), context.player().getScoreboardName());
             }

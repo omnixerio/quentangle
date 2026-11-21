@@ -16,7 +16,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "dev.ultreon.quentangle.terasology.QuentangleTerasology"
+      "dev.ultreon.quentangle.terasology.Quentangle"
     ]
   },
   "mixins": [

@@ -2,6 +2,7 @@ package dev.ultreon.quentangle.fabric.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import dev.ultreon.quentangle.client.gui.IScreen;
 import dev.ultreon.quentangle.mc.client.event.screen.ClientScreenOpenEvent;
 import dev.ultreon.quentangle.mc.event.system.EventSystem;
 import net.minecraft.client.Minecraft;
@@ -15,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class FabricMinecraftMixin {
     @Inject(method = "setScreen", at = @At(value = "HEAD"), cancellable = true)
     public void setScreen(Screen screen, CallbackInfo ci, @Local(ordinal = 0, argsOnly = true) LocalRef<Screen> guiScreen) {
-        ClientScreenOpenEvent publish = EventSystem.MAIN.publish(new ClientScreenOpenEvent(screen));
+        ClientScreenOpenEvent publish = EventSystem.MAIN.publish(new ClientScreenOpenEvent((IScreen) screen));
         if (publish.isCanceled()) {
             if (publish.get() != null) {
                 guiScreen.set(publish.get());

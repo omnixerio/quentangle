@@ -1,10 +1,11 @@
 package dev.ultreon.quentangle.qv.platform;
 
-import dev.ultreon.quentangle.api.IItemGroupApi;
-import dev.ultreon.quentangle.api.IScreenApi;
-import dev.ultreon.quentangle.api.ITextApi;
+import dev.ultreon.quentangle.api.*;
 import dev.ultreon.quentangle.api.block.entity.IBlockEntityApi;
+import dev.ultreon.quentangle.api.entity.IEntityApi;
+import dev.ultreon.quentangle.util.IVec;
 import net.quantumvoxel.text.Text;
+import net.quantumvoxel.util.BlockVec;
 import net.quantumvoxel.util.Key;
 import net.quantumvoxel.world.World;
 import dev.ultreon.quentangle.Game;
@@ -26,12 +27,12 @@ import java.util.Optional;
 
 public class QuantumPlatform implements IPlatform {
 
-    private final ITextApi textApi = new TextApi();
-    private final IBlocksApi blocksApi = new BlocksApi();
-    private final IItemsApi itemsApi = new ItemsApi();
-    private final IItemGroupApi itemGroupApi = new ItemGroupApi();
-    private final IBlockEntityApi blockEntityApi = new BlockEntityApi();
-    private final IScreenApi screenApi = new ScreenApi();
+    private final ITextApi textApi = new QVTextApi();
+    private final IBlocksApi blocksApi = new QVBlocksApi();
+    private final IItemsApi itemsApi = new QVItemsApi();
+    private final IItemGroupApi itemGroupApi = new QVItemGroupApi();
+    private final IBlockEntityApi blockEntityApi = new QVBlockEntityApi();
+    private final IScreenApi screenApi = new QVScreenApi();
 
     @Override
     public boolean isModLoaded(String modId) {
@@ -157,5 +158,20 @@ public class QuantumPlatform implements IPlatform {
     @Override
     public IScreenApi getScreenApi() {
         return screenApi;
+    }
+
+    @Override
+    public IRegistryApi registryApi(String modId) {
+        return new QVRegistryApi(modId);
+    }
+
+    @Override
+    public IEntityApi getEntityApi() {
+        return new QVEntityApi();
+    }
+
+    @Override
+    public IBlockVec createBlockVec(IVec pos) {
+        return (IBlockVec) new BlockVec(pos.quent$blockX(), pos.quent$blockY(), pos.quent$blockZ());
     }
 }

@@ -1,6 +1,7 @@
 package dev.ultreon.quentangle.mc.network;
 
-import dev.ultreon.quentangle.mc.network.packet.Packet;
+import dev.ultreon.quentangle.api.network.packet.IPacketIO;
+import dev.ultreon.quentangle.api.network.packet.Packet;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import org.jetbrains.annotations.NotNull;
@@ -24,6 +25,6 @@ public class PayloadWrapper<T extends Packet<?>> implements CustomPacketPayload 
     }
 
     public void write(RegistryFriendlyByteBuf object) {
-        packet.write(object);
+        packet.write((IPacketIO) object);
     }
 }

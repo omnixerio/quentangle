@@ -19,8 +19,8 @@ public abstract class MixinBlockHit implements IBlockHit {
     public abstract net.quantumvoxel.util.Direction face();
 
     @Override
-    public IVec quent$hitVec(IVec pos) {
-        return pos.set(hitPos().x, hitPos().y, hitPos().z);
+    public IVec quent$hitVec() {
+        return (IVec) new Vector3d(hitPos().x, hitPos().y, hitPos().z);
     }
 
     @Override

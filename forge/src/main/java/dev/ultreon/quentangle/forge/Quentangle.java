@@ -1,7 +1,10 @@
 package dev.ultreon.quentangle.forge;
 
+import dev.ultreon.quentangle.forge.platform.ForgeMcPlatform;
 import dev.ultreon.quentangle.mc.McCommonClass;
 import dev.ultreon.quentangle.CommonConstants;
+import dev.ultreon.quentangle.mc.platform.McPlatform;
+import dev.ultreon.quentangle.platform.Platform;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod(CommonConstants.MOD_ID)
@@ -13,8 +16,7 @@ public class Quentangle {
         // project.
 
         // Use Forge to bootstrap the Common mod.
+        Platform.PLATFORM = McPlatform.PLATFORM = new ForgeMcPlatform();
         CommonConstants.LOG.info("Hello Forge world!");
-        McCommonClass.init();
-
     }
 }

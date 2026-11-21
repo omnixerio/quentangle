@@ -1,7 +1,8 @@
 package dev.ultreon.quentangle.api.block;
 
 import dev.ultreon.quentangle.api.IBlockSettings;
-import dev.ultreon.quentangle.block.IBlockFactory;
+import dev.ultreon.quentangle.block.IBlockListener;
+import dev.ultreon.quentangle.dev.IBlockInstance;
 
 public interface IBlocksApi {
     IBlock getAir();
@@ -11,5 +12,5 @@ public interface IBlocksApi {
 
     IBlockSettings blockSettings();
 
-    IBlock create(IBlockFactory factory, IBlockSettings properties);
+    <T extends IBlockListener> IBlockInstance<T> create(T factory, IBlockSettings properties);
 }

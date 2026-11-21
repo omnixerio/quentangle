@@ -1,9 +1,9 @@
 package dev.ultreon.quentangle.item;
 
-import dev.ultreon.quentangle.platform.Services;
+import dev.ultreon.quentangle.platform.Platform;
 
 public final class ItemProperties {
-    public static final int MAX_STACK_SIZE = Services.PLATFORM.getDefaultMaxStackSize();
+    public static final int MAX_STACK_SIZE = Platform.PLATFORM.getDefaultMaxStackSize();
 
     private int maxStackSize = MAX_STACK_SIZE;
     private boolean isDamageable = true;

@@ -15,8 +15,8 @@
   "icon": "${mod_id}.png",
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "dev.ultreon.quentangle.qv.QuentangleQuantum"
+    "quantum:main": [
+      "dev.ultreon.quentangle.qv.Quentangle"
     ]
   },
   "mixins": [
@@ -25,9 +25,6 @@
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",
     "quantum": ">=0.1",
-    "java": ">=${java_version}"
-  },
-  "suggests": {
-    "another-mod": "*"
+    "java": ">=25"
   }
 }

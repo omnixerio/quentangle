@@ -37,3 +37,7 @@ neoForge {
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+}

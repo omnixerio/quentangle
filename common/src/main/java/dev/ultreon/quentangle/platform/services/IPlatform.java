@@ -2,19 +2,17 @@ package dev.ultreon.quentangle.platform.services;
 
 import dev.ultreon.quentangle.Game;
 import dev.ultreon.quentangle.ModLoader;
-import dev.ultreon.quentangle.api.IItemGroupApi;
-import dev.ultreon.quentangle.api.IRegistryApi;
-import dev.ultreon.quentangle.api.IScreenApi;
-import dev.ultreon.quentangle.api.ITextApi;
+import dev.ultreon.quentangle.api.*;
 import dev.ultreon.quentangle.api.block.IBlocksApi;
 import dev.ultreon.quentangle.api.block.entity.IBlockEntityApi;
+import dev.ultreon.quentangle.api.entity.IEntityApi;
 import dev.ultreon.quentangle.item.IItemsApi;
 import dev.ultreon.quentangle.platform.IMod;
-import dev.ultreon.quentangle.registry.IDeferredRegistry;
 import dev.ultreon.quentangle.registry.IKey;
 import dev.ultreon.quentangle.text.IMutableTextObject;
 import dev.ultreon.quentangle.text.ITextObject;
 import dev.ultreon.quentangle.util.Env;
+import dev.ultreon.quentangle.util.IVec;
 
 import java.nio.file.Path;
 import java.util.Optional;
@@ -78,6 +76,10 @@ public interface IPlatform {
 
     ModLoader getModLoader();
 
+    default String getPlatformName() {
+        return getModLoader().name();
+    }
+
     Game getGame();
 
     Path getConfigDir();
@@ -91,5 +93,9 @@ public interface IPlatform {
 
     IScreenApi getScreenApi();
 
-    IRegistryApi registryApi();
+    IRegistryApi registryApi(String modId);
+
+    IEntityApi getEntityApi();
+
+    IBlockVec createBlockVec(IVec pos);
 }

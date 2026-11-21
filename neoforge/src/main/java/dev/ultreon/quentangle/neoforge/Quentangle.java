@@ -2,7 +2,9 @@ package dev.ultreon.quentangle.neoforge;
 
 
 import dev.ultreon.quentangle.CommonConstants;
-import dev.ultreon.quentangle.mc.McCommonClass;
+import dev.ultreon.quentangle.mc.platform.McPlatform;
+import dev.ultreon.quentangle.neoforge.platform.NeoForgeMcPlatform;
+import dev.ultreon.quentangle.platform.Platform;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 
@@ -15,7 +17,7 @@ public class Quentangle {
         // project.
 
         // Use NeoForge to bootstrap the Common mod.
+        Platform.PLATFORM = McPlatform.PLATFORM = new NeoForgeMcPlatform();
         CommonConstants.LOG.info("Hello NeoForge world!");
-        McCommonClass.init();
     }
 }

@@ -1,20 +1,22 @@
 package dev.ultreon.quentangle.fabric.platform;
 
 import com.mojang.brigadier.CommandDispatcher;
-import net.quantumvoxel.api.neocommand.CommandRegistrant;
 import dev.ultreon.quentangle.ModLoader;
+import dev.ultreon.quentangle.api.entity.IEntityApi;
+import dev.ultreon.quentangle.api.IItemGroupApi;
+import dev.ultreon.quentangle.api.IRegistryApi;
+import dev.ultreon.quentangle.api.IScreenApi;
+import dev.ultreon.quentangle.api.network.NetworkRegistry;
+import dev.ultreon.quentangle.api.network.Networker;
+import dev.ultreon.quentangle.fabric.FabricItemGroupApi;
+import dev.ultreon.quentangle.fabric.FabricScreenApi;
 import dev.ultreon.quentangle.fabric.network.FabricNetworker;
-import dev.ultreon.quentangle.fabric.registrar.FabricRegistrarManager;
-import dev.ultreon.quentangle.fabric.tabs.FabricCreativeTabBuilder;
 import dev.ultreon.quentangle.mc.components.ComponentManager;
 import dev.ultreon.quentangle.mc.components.SimpleComponentManager;
-import dev.ultreon.quentangle.mc.network.NetworkRegistry;
-import dev.ultreon.quentangle.mc.network.Networker;
 import dev.ultreon.quentangle.mc.platform.ICommandRegistrant;
 import dev.ultreon.quentangle.mc.platform.IMcPlatform;
 import dev.ultreon.quentangle.mc.platform.services.IClientPlatform;
 import dev.ultreon.quentangle.mc.registrar.RegistrarManager;
-import dev.ultreon.quentangle.mc.tabs.IItemGroupBuilder;
 import dev.ultreon.quentangle.platform.IMod;
 import dev.ultreon.quentangle.util.Env;
 import net.fabricmc.api.EnvType;
@@ -66,23 +68,28 @@ public class FabricMcPlatform implements IMcPlatform {
     }
 
     @Override
-    public RegistrarManager getRegistrarManager(String modId) {
-        if (this.registrars.containsKey(modId)) {
-            return this.registrars.get(modId);
-        }
+    public IItemGroupApi getItemGroupApi() {
+        return new FabricItemGroupApi();
+    }
 
-        this.registrars.put(modId, new FabricRegistrarManager(modId));
-        return this.registrars.get(modId);
+    @Override
+    public IScreenApi getScreenApi() {
+        return new FabricScreenApi();
+    }
+
+    @Override
+    public IRegistryApi registryApi(String modId) {
+        return new FabricRegistryApi(modId);
+    }
+
+    @Override
+    public IEntityApi getEntityApi() {
+        return new FabricEntityApi();
     }
 
     @Override
     public ComponentManager getComponentManager(String modId) {
         return componentManagers.computeIfAbsent(modId, SimpleComponentManager::new);
-    }
-
-    @Override
-    public IItemGroupBuilder creativeTabBuilder() {
-        return new FabricCreativeTabBuilder();
     }
 
     @Override

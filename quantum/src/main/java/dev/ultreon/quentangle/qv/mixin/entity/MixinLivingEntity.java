@@ -1,7 +1,7 @@
 package dev.ultreon.quentangle.qv.mixin.entity;
 
 import dev.ultreon.quentangle.api.entity.ILivingEntity;
-import net.quantumvoxel.world.LivingEntity;
+import net.quantumvoxel.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 

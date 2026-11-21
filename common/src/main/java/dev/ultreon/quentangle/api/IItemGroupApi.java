@@ -1,12 +1,12 @@
 package dev.ultreon.quentangle.api;
 
-import dev.ultreon.quentangle.api.item.IItemGroup;
-import dev.ultreon.quentangle.api.item.IItemGroupContent;
-import dev.ultreon.quentangle.api.item.IItemStack;
+import dev.ultreon.quentangle.api.item.IItemGroupBuilder;
 import dev.ultreon.quentangle.registry.IKey;
 
-import java.util.function.Supplier;
-
 public interface IItemGroupApi {
-    IItemGroup create(IKey key, Supplier<IItemStack> icon, IITemGroupFactory factory);
+    /// Creates a new creative mode tab builder
+    ///
+    /// @see net.minecraft.world.item.CreativeModeTab
+    /// @return The creative mode tab builder
+    IItemGroupBuilder builder(IKey key);
 }

@@ -1,7 +1,6 @@
 package dev.ultreon.quentangle.mc.platform;
 
 import com.mojang.brigadier.CommandDispatcher;
-import dev.ultreon.quentangle.mc.platform.services.IMcPlatform;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;

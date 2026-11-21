@@ -15,6 +15,8 @@ public abstract class MixinInventory implements IInventory {
 
     @Shadow public abstract ItemStack getItem(int slot);
 
+    @Shadow public abstract void setItem(int slot, ItemStack stack);
+
     @Override
     public int quent$size() {
         return getContainerSize();
@@ -28,5 +30,10 @@ public abstract class MixinInventory implements IInventory {
     @Override
     public IItemStack quent$get(int slot) {
         return (IItemStack) (Object) getItem(slot);
+    }
+
+    @Override
+    public void quent$set(int slot, IItemStack stack) {
+        setItem(slot, (ItemStack) (Object) stack);
     }
 }

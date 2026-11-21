@@ -1,21 +1,22 @@
 package dev.ultreon.quentangle.mc.client.event.screen;
 
+import dev.ultreon.quentangle.client.gui.IScreen;
 import dev.ultreon.quentangle.mc.client.event.ClientScreenEvent;
 import dev.ultreon.quentangle.mc.event.CancelableValue;
 import net.minecraft.client.gui.screens.Screen;
 import org.jetbrains.annotations.Nullable;
 
 public class ClientScreenOpenEvent implements ClientScreenEvent, CancelableValue<Screen> {
-    private final Screen screen;
+    private final IScreen screen;
     private boolean canceled;
     private @Nullable Screen nextScreen;
 
-    public ClientScreenOpenEvent(Screen screen) {
+    public ClientScreenOpenEvent(IScreen screen) {
         this.screen = screen;
     }
 
     @Override
-    public Screen getScreen() {
+    public IScreen getScreen() {
         return screen;
     }
 

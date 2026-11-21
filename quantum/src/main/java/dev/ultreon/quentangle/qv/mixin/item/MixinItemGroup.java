@@ -14,7 +14,7 @@ public abstract class MixinItemGroup implements IItemGroup {
     public abstract Item getIcon();
 
     @Override
-    public IItemStack quentangle$getIcon() {
+    public IItemStack quent$getIcon() {
         return (IItemStack) new ItemStack(getIcon(), 1);
     }
 }

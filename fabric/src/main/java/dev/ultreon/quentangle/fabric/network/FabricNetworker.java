@@ -1,7 +1,12 @@
 package dev.ultreon.quentangle.fabric.network;
 
-import dev.ultreon.quentangle.mc.network.NetworkRegistry;
-import dev.ultreon.quentangle.mc.network.Networker;
+import dev.ultreon.quentangle.api.network.NetworkRegistry;
+import dev.ultreon.quentangle.api.network.Networker;
+import dev.ultreon.quentangle.api.player.IServerPlayer;
+import dev.ultreon.quentangle.mc.network.PayloadWrapper;
+import dev.ultreon.quentangle.api.network.endpoint.ClientEndpoint;
+import dev.ultreon.quentangle.api.network.endpoint.ServerEndpoint;
+import dev.ultreon.quentangle.api.network.packet.Packet;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,7 +31,7 @@ public class FabricNetworker implements Networker {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T extends Packet<T> & ClientEndpoint> void sendToClient(T payload, ServerPlayer player) {
-        ServerPlayNetworking.send(player, new PayloadWrapper<>(registry.getType((Class<T>) payload.getClass()), payload));
+    public <T extends Packet<T> & ClientEndpoint> void sendToClient(T payload, IServerPlayer player) {
+        ServerPlayNetworking.send((ServerPlayer) player, new PayloadWrapper<>(registry.getType((Class<T>) payload.getClass()), payload));
     }
 }

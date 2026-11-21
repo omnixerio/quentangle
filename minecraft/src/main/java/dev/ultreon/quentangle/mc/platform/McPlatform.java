@@ -5,13 +5,11 @@ import dev.ultreon.quentangle.mc.Constants;
 import dev.ultreon.quentangle.util.Env;
 import dev.ultreon.quentangle.ModLoader;
 import dev.ultreon.quentangle.mc.components.ComponentManager;
-import dev.ultreon.quentangle.mc.network.NetworkRegistry;
-import dev.ultreon.quentangle.mc.network.Networker;
+import dev.ultreon.quentangle.api.network.NetworkRegistry;
+import dev.ultreon.quentangle.api.network.Networker;
 import dev.ultreon.quentangle.mc.platform.services.IClientPlatform;
-import dev.ultreon.quentangle.mc.registrar.RegistrarManager;
-import dev.ultreon.quentangle.mc.tabs.IItemGroupBuilder;
 import dev.ultreon.quentangle.platform.IMod;
-import dev.ultreon.quentangle.platform.Services;
+import dev.ultreon.quentangle.platform.Platform;
 
 import java.nio.file.Path;
 import java.util.Optional;
@@ -28,7 +26,7 @@ public class McPlatform {
 
     }
 
-    static final IMcPlatform PLATFORM = (IMcPlatform) Services.PLATFORM;
+    public static IMcPlatform PLATFORM;
 
     /*
      This code is used to load a service for the current environment. Your implementation of the service must be defined
@@ -40,10 +38,6 @@ public class McPlatform {
         final T loadedService = ServiceLoader.load(clazz).findFirst().orElseThrow(() -> new NullPointerException("Failed to load service for " + clazz.getName()));
         Constants.LOG.debug("Loaded {} for service {}", loadedService, clazz);
         return loadedService;
-    }
-
-    public static RegistrarManager getRegistrarManager(String modId) {
-        return PLATFORM.getRegistrarManager(modId);
     }
 
     public static boolean isModLoaded(String modId) {
@@ -72,10 +66,6 @@ public class McPlatform {
 
     public static ComponentManager getComponentManager(String modId) {
         return PLATFORM.getComponentManager(modId);
-    }
-
-    public static IItemGroupBuilder creativeTabBuilder() {
-        return PLATFORM.creativeTabBuilder();
     }
 
     public static Env getEnv() {

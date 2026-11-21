@@ -1,12 +1,12 @@
 package dev.ultreon.quentangle.registry;
 
-import dev.ultreon.quentangle.platform.Services;
+import dev.ultreon.quentangle.platform.Platform;
 
 import java.util.function.Function;
 
 public interface IKey {
     static IKey quent$of(String domain, String path) {
-        return Services.PLATFORM.key(domain, path);
+        return Platform.PLATFORM.key(domain, path);
     }
 
     static IKey quent$parse(String id) {
@@ -14,12 +14,12 @@ public interface IKey {
         if (split.length == 1) {
             String path = split[0];
             if (!path.matches("[a-z0-9/._]+")) throw new IllegalArgumentException("Invalid path: " + id);
-            return Services.PLATFORM.key(Services.PLATFORM.getDefaultNamespace(), path);
+            return Platform.PLATFORM.key(Platform.PLATFORM.getDefaultNamespace(), path);
         }
         if (split.length != 2) throw new IllegalArgumentException("Invalid id: " + id);
         if (!split[0].matches("[a-z0-9_]+")) throw new IllegalArgumentException("Invalid domain: " + id);
         if (!split[1].matches("[a-z0-9/._]+")) throw new IllegalArgumentException("Invalid path: " + id);
-        return Services.PLATFORM.key(split[0], split[1]);
+        return Platform.PLATFORM.key(split[0], split[1]);
     }
 
     default IKey quent$withPath(String path) {
@@ -35,7 +35,7 @@ public interface IKey {
     }
 
     default IKey quent$withDefaultDomain() {
-        return IKey.quent$of(Services.PLATFORM.getDefaultNamespace(), quent$path());
+        return IKey.quent$of(Platform.PLATFORM.getDefaultNamespace(), quent$path());
     }
 
     String quent$domain();

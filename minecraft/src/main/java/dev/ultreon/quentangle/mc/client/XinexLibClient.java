@@ -6,7 +6,7 @@ import dev.ultreon.quentangle.mc.client.event.LocalPlayerQuitEvent;
 import dev.ultreon.quentangle.mc.client.event.screen.ClientScreenOpenEvent;
 import dev.ultreon.quentangle.mc.client.render.TestEntityRenderer;
 import dev.ultreon.quentangle.mc.client.render.model.TestEntityModel;
-import dev.ultreon.quentangle.mc.dev.DevEntities;
+import dev.ultreon.quentangle.dev.DevEntities;
 import dev.ultreon.quentangle.mc.event.system.EventSystem;
 import dev.ultreon.quentangle.mc.platform.XinexPlatform;
 import dev.ultreon.quentangle.mc.platform.services.IClientPlatform;
@@ -21,8 +21,8 @@ public class XinexLibClient {
 
     private static void initDev() {
         IClientPlatform client = XinexPlatform.client();
-        client.entityRenderers().register(DevEntities.TEST::get, TestEntityRenderer::new);
-        client.entityRenderers().registerModel(TestEntityModel.LAYER_LOCATION, TestEntityModel::createBodyLayer);
+//        client.entityRenderers().register(DevEntities.TEST::get, TestEntityRenderer::new);
+//        client.entityRenderers().registerModel(TestEntityModel.LAYER_LOCATION, TestEntityModel::createBodyLayer);
 
         EventSystem.MAIN.on(ClientScreenOpenEvent.class, event -> {
             System.out.printf("Screen opened: %s%n", event.getScreen().getClass().getName());

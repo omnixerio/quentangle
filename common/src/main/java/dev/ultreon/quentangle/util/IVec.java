@@ -1,144 +1,53 @@
 package dev.ultreon.quentangle.util;
 
 public interface IVec {
-    double getX();
-    double getY();
-    double getZ();
+    double quent$x();
+    double quent$y();
+    double quent$z();
 
-    void setX(double x);
-    void setY(double y);
-    void setZ(double z);
+    int quent$blockX();
+    int quent$blockY();
+    int quent$blockZ();
 
-    int getBlockX();
-    int getBlockY();
-    int getBlockZ();
-
-    default double distanceSq(IVec pos) {
-        return (this.getX() - pos.getX()) * (this.getX() - pos.getX()) + (this.getY() - pos.getY()) * (this.getY() - pos.getY()) + (this.getZ() - pos.getZ()) * (this.getZ() - pos.getZ());
+    default double quent$distanceSq(IVec pos) {
+        return (this.quent$x() - pos.quent$x()) * (this.quent$x() - pos.quent$x()) + (this.quent$y() - pos.quent$y()) * (this.quent$y() - pos.quent$y()) + (this.quent$z() - pos.quent$z()) * (this.quent$z() - pos.quent$z());
     }
 
-    default double distance(IVec pos) {
-        return Math.sqrt(distanceSq(pos));
+    default double quent$distance(IVec pos) {
+        return Math.sqrt(quent$distanceSq(pos));
     }
 
-    default double lengthSq() {
-        return this.getX() * this.getX() + this.getY() * this.getY() + this.getZ() * this.getZ();
+    default double quent$lengthSq() {
+        return this.quent$x() * this.quent$x() + this.quent$y() * this.quent$y() + this.quent$z() * this.quent$z();
     }
 
-    default double length() {
-        return Math.sqrt(lengthSq());
+    default double quent$length() {
+        return Math.sqrt(quent$lengthSq());
     }
 
-    default Vec toVec() {
-        return new Vec(this.getX(), this.getY(), this.getZ());
+    IVec quent$copy();
+
+    default boolean quent$isZero() {
+        return this.quent$x() == 0 && this.quent$y() == 0 && this.quent$z() == 0;
     }
 
-    default IVec add(IVec pos) {
-        this.setX(this.getX() + pos.getX());
-        this.setY(this.getY() + pos.getY());
-        this.setZ(this.getZ() + pos.getZ());
-        return this;
+    default boolean quent$isEqual(IVec pos) {
+        return this.quent$x() == pos.quent$x() && this.quent$y() == pos.quent$y() && this.quent$z() == pos.quent$z();
     }
 
-    default IVec sub(IVec pos) {
-        this.setX(this.getX() - pos.getX());
-        this.setY(this.getY() - pos.getY());
-        this.setZ(this.getZ() - pos.getZ());
-        return this;
+    default boolean quent$isNotEqual(IVec pos) {
+        return !this.quent$isEqual(pos);
     }
 
-    default IVec mul(double scalar) {
-        this.setX(this.getX() * scalar);
-        this.setY(this.getY() * scalar);
-        this.setZ(this.getZ() * scalar);
-        return this;
+    default boolean quent$isPositive() {
+        return this.quent$x() > 0 && this.quent$y() > 0 && this.quent$z() > 0;
     }
 
-    default IVec mul(IVec pos) {
-        this.setX(this.getX() * pos.getX());
-        this.setY(this.getY() * pos.getY());
-        this.setZ(this.getZ() * pos.getZ());
-        return this;
+    default boolean quent$isNegative() {
+        return this.quent$x() < 0 && this.quent$y() < 0 && this.quent$z() < 0;
     }
 
-    default IVec div(double scalar) {
-        this.setX(this.getX() / scalar);
-        this.setY(this.getY() / scalar);
-        this.setZ(this.getZ() / scalar);
-        return this;
-    }
+    int quent$getChunkX();
 
-    default IVec div(IVec pos) {
-        this.setX(this.getX() / pos.getX());
-        this.setY(this.getY() / pos.getY());
-        this.setZ(this.getZ() / pos.getZ());
-        return this;
-    }
-
-    default IVec negate() {
-        this.setX(-this.getX());
-        this.setY(-this.getY());
-        this.setZ(-this.getZ());
-        return this;
-    }
-
-    default IVec normalize() {
-        double length = this.length();
-        this.setX(this.getX() / length);
-        this.setY(this.getY() / length);
-        this.setZ(this.getZ() / length);
-        return this;
-    }
-
-    IVec copy();
-
-    default boolean isZero() {
-        return this.getX() == 0 && this.getY() == 0 && this.getZ() == 0;
-    }
-
-    default boolean isEqual(IVec pos) {
-        return this.getX() == pos.getX() && this.getY() == pos.getY() && this.getZ() == pos.getZ();
-    }
-
-    default boolean isNotEqual(IVec pos) {
-        return !this.isEqual(pos);
-    }
-
-    default boolean isPositive() {
-        return this.getX() > 0 && this.getY() > 0 && this.getZ() > 0;
-    }
-
-    default boolean isNegative() {
-        return this.getX() < 0 && this.getY() < 0 && this.getZ() < 0;
-    }
-
-    default boolean isBlockVec() {
-        return this instanceof BlockVec;
-    }
-
-    default boolean isChunkVec() {
-        return this instanceof ChunkVec;
-    }
-
-    default boolean isVec() {
-        return this instanceof Vec;
-    }
-
-    int getChunkX();
-    int getChunkY();
-    int getChunkZ();
-
-    default IVec set(double x, double y, double z) {
-        this.setX(x);
-        this.setY(y);
-        this.setZ(z);
-        return this;
-    }
-
-    default IVec set(IVec pos) {
-        this.setX(pos.getX());
-        this.setY(pos.getY());
-        this.setZ(pos.getZ());
-        return this;
-    }
+    int quent$getChunkZ();
 }

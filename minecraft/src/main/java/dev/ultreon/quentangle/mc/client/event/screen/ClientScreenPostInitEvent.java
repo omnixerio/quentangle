@@ -1,18 +1,19 @@
 package dev.ultreon.quentangle.mc.client.event.screen;
 
+import dev.ultreon.quentangle.client.gui.IScreen;
 import dev.ultreon.quentangle.mc.client.event.ClientScreenEvent;
 import net.minecraft.client.gui.screens.Screen;
 
 
 public class ClientScreenPostInitEvent implements ClientScreenEvent {
-    private final Screen screen;
+    private final IScreen screen;
 
-    public ClientScreenPostInitEvent(Screen screen) {
+    public ClientScreenPostInitEvent(IScreen screen) {
         this.screen = screen;
     }
 
     @Override
-    public Screen getScreen() {
+    public IScreen getScreen() {
         return screen;
     }
 }

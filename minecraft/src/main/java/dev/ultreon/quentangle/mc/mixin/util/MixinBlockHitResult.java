@@ -1,5 +1,6 @@
 package dev.ultreon.quentangle.mc.mixin.util;
 
+import dev.ultreon.quentangle.api.IBlockVec;
 import dev.ultreon.quentangle.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.BlockHitResult;
@@ -20,9 +21,8 @@ public abstract class MixinBlockHitResult extends HitResult implements IBlockHit
     }
 
     @Override
-    public BlockVec quent$blockVec(BlockVec pos) {
-        BlockPos blockPos = getBlockPos();
-        return new BlockVec(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+    public IBlockVec quent$blockVec() {
+        return (IBlockVec) getBlockPos();
     }
 
     @Override
